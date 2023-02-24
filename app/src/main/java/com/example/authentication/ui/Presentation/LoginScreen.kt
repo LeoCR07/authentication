@@ -27,7 +27,14 @@ import com.example.authentication.ui.Presentation.Login.LineColor
 import com.example.authentication.ui.Presentation.Login.Name
 import com.example.authentication.R
 import com.example.authentication.domain.AuthResultContract
+import com.example.authentication.ui.Foundation.LoginScreen.CustomFacebookButton
 import com.example.authentication.ui.ViewModels.LoginViewModel
+import com.facebook.CallbackManager
+import com.facebook.FacebookCallback
+import com.facebook.FacebookException
+import com.facebook.FacebookSdk.setAutoLogAppEventsEnabled
+import com.facebook.login.LoginManager
+import com.facebook.login.LoginResult
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
@@ -49,6 +56,9 @@ fun LoginScreen(
     val isError = loginUiState?.loginError != null
     val context = LocalContext.current
 
+
+    /**  Facebook **/
+    val callbackManager = CallbackManager.Factory.create()
 
     /** Google **/
     val coroutineScope = rememberCoroutineScope()
@@ -133,13 +143,46 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(15.dp))
 
+
             BtnLogin(
                 title ="Continue with Facebook",
                 color = Color(0xFF3b5998),
                 icon = R.drawable.facebook,
                 FontColor = Color.White,
-                onClick = ClickSingUpFacebook
+                onClick = {
+
+                    setAutoLogAppEventsEnabled(true);
+
+                    LoginManager.getInstance().registerCallback(callbackManager,object :FacebookCallback<LoginResult>{
+                        override fun onCancel() {
+                            TODO("Not yet implemented")
+
+                        }
+
+                        override fun onError(error: FacebookException) {
+                            TODO("Not yet implemented")
+
+                        }
+
+                        override fun onSuccess(result: LoginResult) {
+                            TODO("Not yet implemented")
+
+
+                        }
+
+                    })
+
+                }
             )
+
+
+
+            CustomFacebookButton(
+                modifier = Modifier
+                    .height(20.dp)
+                    .width(200.dp),
+                true,{},{},{})
+
             Spacer(modifier = Modifier.height(12.dp))
             BtnLogin(
                 title = "Continue with Google",
@@ -200,7 +243,7 @@ fun LoginScreen(
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(15.dp,0.dp,15.dp,0.dp)
+                    .padding(15.dp, 0.dp, 15.dp, 0.dp)
                     .height(60.dp),
                 value = loginUiState?.password ?: "",
                 onValueChange = { loginViewModel?.onPasswordNameChange(it) },

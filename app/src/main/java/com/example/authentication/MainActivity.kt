@@ -4,10 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.icons.Icons
@@ -28,11 +25,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.authentication.ui.Foundation.LoginScreen.CustomFacebookButton
 import com.example.authentication.ui.Navigation.HomeRoutes
 import com.example.authentication.ui.Navigation.LoginRoutes
 import com.example.authentication.ui.Navigation.Navigation
 import com.example.authentication.ui.ViewModels.LoginViewModel
 import com.example.authentication.ui.theme.AuthenticationTheme
+import com.facebook.FacebookSdk
 
 class MainActivity : ComponentActivity() {
 
@@ -56,6 +55,9 @@ class MainActivity : ComponentActivity() {
                         startDestination = HomeRoutes.Account.name
                     }
 
+
+
+                    //FacebookSdk.sdkInitialize(applicationContext)
 
                     Navigation(
                         loginViewModel = loginViewModel,

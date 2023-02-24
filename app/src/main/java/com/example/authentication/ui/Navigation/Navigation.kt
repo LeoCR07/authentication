@@ -1,6 +1,8 @@
 package com.example.authentication.ui.Navigation
 
+import android.app.Activity
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,6 +18,7 @@ fun Navigation(
     loginViewModel: LoginViewModel,
     startDestination: String,
 ) {
+
 
     NavHost(
         navController = navController,
